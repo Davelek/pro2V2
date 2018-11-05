@@ -27,49 +27,54 @@ public class ProFrame extends JFrame {
     }
 
     private void init(int width, int height) {
-        //Creating the Frame
-        JFrame frame = new JFrame("Frame");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
+        setSize(width, height);
+        setTitle("Programování 2");
 
-        //Creating the MenuBar and adding components
-        JMenuBar mb = new JMenuBar();
-        JMenu m1 = new JMenu("FILE");
-        JMenu m2 = new JMenu("Help");
-        mb.add(m1);
-        mb.add(m2);
-        JMenuItem m11 = new JMenuItem("Open");
-        JMenuItem m22 = new JMenuItem("Save as");
-        m1.add(m11);
-        m1.add(m22);
+        //setLayout(new BoxLayout(getContentPane(),1));
 
-        //Creating the panel at bottom and adding components
-        JPanel panel = new JPanel(); // the panel is not visible in output
-        JLabel label = new JLabel("Enter Text");
-        JTextField tf = new JTextField(10); // accepts upto 10 characters
-        JButton send = new JButton("Send");
-        JButton reset = new JButton("Reset");
-        panel.add(label); // Components Added using Flow Layout
-        panel.add(label); // Components Added using Flow Layout
-        panel.add(tf);
-        panel.add(send);
-        panel.add(reset);
+        JPanel toolbar = new JPanel();
+        add(toolbar, BorderLayout.NORTH);
 
-        // Text Area at the Center
-        JTextArea ta = new JTextArea();
+        JButton button = new JButton();
+        button.setText("Přidat poznámku");
+        toolbar.add(button);
 
-        //Adding Components to the frame.
-        frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        frame.getContentPane().add(BorderLayout.NORTH, mb);
-        frame.getContentPane().add(BorderLayout.CENTER, ta);
-        frame.setVisible(true);
+        JButton saveButton = new JButton();
+        saveButton.setText("Uložit");
+        toolbar.add(saveButton);
 
-      /*  URLButton.addActionListener(action->{
+
+        JButton loadButton = new JButton();
+        loadButton.setText("Načíst");
+        toolbar.add(loadButton);
+
+        JTextField URLTextField = new JTextField();
+        URLTextField.setText("http://www.eurofotbal.cz/feed/rss/premier-league/");
+        toolbar.add(URLTextField);
+
+        JButton URLButton = new JButton();
+        URLButton.setText("Uložit URL");
+        toolbar.add(URLButton);
+
+        button.addActionListener(action -> {
+            ToDoItem item = new ProDialog().getItem();
+            model.add(item);
+        });
+        saveButton.addActionListener(action -> {
+            saveItems();
+        });
+        loadButton.addActionListener(action -> {
+            loadItems();
+        });
+
+        URLButton.addActionListener(action->{
             System.out.println("----------------------------------------------------------------------------------------");
-           addFeed(URLTextField.getText());
+            addFeed(URLTextField.getText());
 
             // parse(URLTextField.getText());
-        });*/
+        });
 
         model = new TableModel();
 
@@ -80,7 +85,7 @@ public class ProFrame extends JFrame {
         setLocationRelativeTo(null); //center okna na monitoru
 
         readFeeds();
-      //  parse("http://www.eurofotbal.cz/feed/rss/premier-league/");
+        //  parse("http://www.eurofotbal.cz/feed/rss/premier-league/");
     }
 
 
@@ -88,7 +93,7 @@ public class ProFrame extends JFrame {
         try {
 //            RssParser parser = new RssParser(new FileInputStream(new File("download.xml")));
 
-           // String url = "http://www.eurofotbal.cz/feed/rss/premier-league/";
+            // String url = "http://www.eurofotbal.cz/feed/rss/premier-league/";
 
             URLConnection connection = new URL(url).openConnection();
             connection.connect();
@@ -98,7 +103,7 @@ public class ProFrame extends JFrame {
             List<RssItem> rssitems = parser.parseItems();
 
             for (RssItem rssitem: rssitems
-                 ) {
+            ) {
                 System.out.println(rssitem.toString());
             }
         }catch (Exception e){
