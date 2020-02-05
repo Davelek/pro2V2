@@ -8,8 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import model.ToDoItem;
-
-
 public class ProDialog extends JDialog {
 
     private ToDoItem item;
@@ -34,7 +32,7 @@ public class ProDialog extends JDialog {
             setVisible(false);
         });
 
-        pack(); //shluk dle vnitřních prvků
+        pack(); //Přizpůsobení prvků do okna
         setLocationRelativeTo(null); //center
     }
 

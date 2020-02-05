@@ -9,10 +9,6 @@ public class FeedItem {
     boolean shouldShow;
     String alias;
 
-
-
-
-
     public String getUrl() {
         return url;
     }
@@ -49,7 +45,6 @@ public class FeedItem {
     public String toString() {
         return String.format("%s;%s;%s;%s", url,addedMillis,shouldShow,alias);
     }
-
 
     public static FeedItem parseFromCSV(String line){
      String[] values = line.split(";");
